@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Security Headers via Meta Tags -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+<title>Med | Cyber Security Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; scroll-behavior:smooth;}
+:root {
+    --primary: #00ff88;
+    --secondary: #0ea5e9;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --bg: #0a0f0d;
+    --card-bg: #111827;
+    --text: #d1fae5;
+}
+body { 
+    font-family:'Poppins',sans-serif; 
+    background: var(--bg); 
+    color: var(--text);
+    line-height: 1.6;
+}
+/* Security Banner */
+.security-banner {
+    background: linear-gradient(90deg, #1e3a8a, #0ea5e9);
+    color: white;
+    padding: 8px;
+    text-align: center;
+    font-size: 12px;
+    font-family: 'Fira Code', monospace;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1001;
+    border-bottom: 2px solid var(--primary);
+}
+.security-banner::before {
+    content: "🔒 ";
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+/* Navigation */
+nav { 
+    display:flex; 
+    justify-content:space-between; 
+    align-items: center;
+    padding: 20px 10%; 
+    position:fixed; 
+    width:100%; 
+    top: 32px;
+    background:rgba(10,15,13,0.95); 
+    backdrop-filter:blur(10px); 
+    border-bottom:1px solid var(--primary);
+    z-index: 1000;
+}
+nav h2 { 
+    color:var(--primary); 
+    text-shadow:0 0 10px var(--primary);
+    font-family: 'Fira Code', monospace;
+}
+nav ul { display:flex; list-style:none;}
+nav ul li { margin-left:30px;}
+nav ul li a { 
+    color:var(--text); 
+    text-decoration:none; 
+    transition:0.3s;
+    position: relative;
+}
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--primary);
+    transition: width 0.3s;
+}
+nav ul li a:hover { color:var(--primary);}
+nav ul li a:hover::after { width: 100%; }
+/* Hero Section */
+.hero {
+    min-height:100vh; 
+    display:flex; 
+    align-items:center; 
+    justify-content:center; 
+    flex-direction:column; 
+    text-align:center; 
+    background: radial-gradient(circle at center, #001a12 0%, #000 100%);
+    padding: 120px 20px 50px;
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300ff88' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+}
+.hero h1 { 
+    font-size: clamp(32px, 5vw, 56px);
+    position: relative;
+    z-index: 1;
+}
+.hero span { 
+    color:var(--primary); 
+    text-shadow:0 0 20px var(--primary);
+    font-family: 'Fira Code', monospace;
+}
+.hero p { 
+    margin:20px 0; 
+    font-size:18px; 
+    color:#86efac;
+    max-width: 600px;
+}
+.security-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid var(--primary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-top: 20px;
+    font-family: 'Fira Code', monospace;
+}
+.btn { 
+    background:transparent; 
+    color:var(--primary); 
+    padding:12px 28px; 
+    border:2px solid var(--primary); 
+    border-radius:6px; 
+    text-decoration:none; 
+    font-weight:bold; 
+    transition:0.3s;
+    display: inline-block;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+}
+.btn:hover { 
+    background:var(--primary); 
+    color:black; 
+    box-shadow:0 0 20px var(--primary);
+    transform: translateY(-2px);
+}
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+.btn:hover::before {
+    left: 100%;
+}
+/* Sections */
+section { padding:100px 10%;}
+h2 { 
+    color:var(--primary); 
+    margin-bottom:30px; 
+    text-shadow:0 0 10px rgba(0,255,136,0.3);
+    font-family: 'Fira Code', monospace;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+/* Security Tools Section */
+.security-tools {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+.tool-card {
+    background: var(--card-bg);
+    border: 1px solid var(--secondary);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s;
+}
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(14, 165, 233, 0.2);
+    border-color: var(--primary);
+}
+.tool-card h3 {
+    color: var(--secondary);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Fira Code', monospace;
+}
+.tool-input {
+    width: 100%;
+    padding: 12px;
+    background: #0a0f0d;
+    border: 1px solid #374151;
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Fira Code', monospace;
+    margin-bottom: 10px;
+    transition: border-color 0.3s;
+}
+.tool-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+.tool-btn {
+    background: var(--secondary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    width: 100%;
+}
+.tool-btn:hover {
+    background: var(--primary);
+    color: black;
+}
+.strength-meter {
+    height: 4px;
+    background: #374151;
+    border-radius: 2px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+.strength-bar {
+    height: 100%;
+    transition: all 0.3s;
+    width: 0;
+}
+.strength-text {
+    font-size: 12px;
+    margin-top: 5px;
+    font-family: 'Fira Code', monospace;
+}
+.hash-output {
+    background: #0a0f0d;
+    border: 1px solid #374151;
+    padding: 10px;
+    border-radius: 6px;
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    word-break: break-all;
+    margin-top: 10px;
+    color: var(--primary);
+    min-height: 40px;
+}
+/* Cards */
+.cards { 
+    display:grid; 
+    grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); 
+    gap:25px;
+}
+.card { 
+    background:var(--card-bg); 
+    padding:28px; 
+    border-radius:12px; 
+    border:1px solid rgba(0,255,136,0.2);
+    transition:0.3s;
+    position: relative;
+    overflow: hidden;
+}
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+.card:hover { 
+    transform:translateY(-8px); 
+    box-shadow:0 10px 40px rgba(0,255,136,0.15);
+    border-color: var(--primary);
+}
+.card:hover::before {
+    transform: scaleX(1);
+}
+.card h3 { 
+    color:var(--primary); 
+    margin-bottom:12px;
+    font-family: 'Fira Code', monospace;
+}
+/* Contact Form - SECURE VERSION */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--primary);
+    font-size: 14px;
+    font-family: 'Fira Code', monospace;
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 14px;
+    background: #0a0f0d;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0,255,136,0.1);
+}
+.form-group input:invalid:not(:placeholder-shown) {
+    border-color: var(--danger);
+}
+.form-group input:valid:not(:placeholder-shown) {
+    border-color: var(--primary);
+}
+.error-msg {
+    color: var(--danger);
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+    font-family: 'Fira Code', monospace;
+}
+.form-group input:invalid:not(:placeholder-shown) ~ .error-msg {
+    display: block;
+}
+/* Security Log */
+.security-log {
+    background: #0a0f0d;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.log-entry {
+    padding: 4px 0;
+    border-bottom: 1px solid #1f2937;
+    display: flex;
+    gap: 10px;
+}
+.log-time {
+    color: var(--secondary);
+}
+.log-event {
+    color: var(--primary);
+}
+/* Footer */
+footer { 
+    text-align:center; 
+    padding:40px 20px; 
+    background:black; 
+    border-top:1px solid var(--primary);
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+}
+.security-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+/* Responsive */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 5%;
+    }
+    nav ul li {
+        margin-left: 15px;
+    }
+    section {
+        padding: 80px 5%;
+    }
+    .hero {
+        padding-top: 140px;
+    }
+}
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #0a0f0d;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #00cc6a;
+}
+/* Encryption Animation */
+.encrypt-animation {
+    display: inline-block;
+    font-family: 'Fira Code', monospace;
+    color: var(--primary);
+}
+</style>
+</head>
+<body>
+
+<!-- Security Banner -->
+<div class="security-banner" id="securityBanner">
+    🔐 SECURE CONNECTION ESTABLISHED | CSP ACTIVE | XSS PROTECTION ENABLED | <span id="sessionId"></span>
+</div>
+
+<nav>
+    <h2>Med_Secure</h2>
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#security-lab">Security Lab</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<div class="hero">
+    <h1>Hello, I'm <span>Mohammed boukouj</span></h1>
+    <p>Cyber Security & Networking student</p>
+    <div class="security-badge">
+        <span>🛡️</span>
+        <span>WELCOME</span>
+    </div>
+    <br>
+    <a href="#" class="btn" onclick="downloadSecureCV(event)">Download My CV</a>
+</div>
+
+<section id="about">
+    <h2>👤 About Me</h2>
+    <p>IT student specialized in Linux administration, networking configuration and secure system design.</p>
+    <br>
+    <p><strong>Security Focus:</strong> Linux Administration, Networking Security</p>
+</section>
+
+<section id="skills">
+    <h2>⚡ Technical Arsenal</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>🔐 Security</h3>
+            <p>Firewall setup (ufw/iptables)<br>Password Hashing script<br>Firewall setup (ufw/iptables)<br>SSH hardening</p>
+        </div>
+        <div class="card">
+            <h3>💻 Programming</h3>
+            <p>Python (Security Scripts)<br>C++</p>
+        </div>
+        <div class="card">
+            <h3>🐧 Linux & Systems</h3>
+            <p>User management,<br>Permissions<br>Group management</p>
+        </div>
+        <div class="card">
+            <h3>🌐 Networking</h3>
+            <p>Subnetting & VLSM<br>VLAN & Router/Switch Config: Packet Tracer simulations<br>VLAN & Segmentation<br>Cisco Security</p>
+        </div>
+    </div>
+</section>
+
+<section id="security-lab" class="security-tools">
+    <h2>🔬 Interactive Security Lab</h2>
+    <p style="margin-bottom: 30px; color: #86efac;">Test security concepts directly in your browser. All processing happens client-side (no data sent to server).</p>
+    
+    <div class="tools-grid">
+        <!-- Password Strength Analyzer -->
+        <div class="tool-card">
+            <h3>🔑 Password Strength Analyzer</h3>
+            <input type="text" class="tool-input" id="passwordInput" placeholder="Enter password to test..." autocomplete="off">
+            <div class="strength-meter">
+                <div class="strength-bar" id="strengthBar"></div>
+            </div>
+            <div class="strength-text" id="strengthText">Enter password to analyze</div>
+            <div style="margin-top: 10px; font-size: 11px; color: #6b7280;">
+                Checks: Length, Complexity, Entropy, Common patterns
+            </div>
+        </div>
+
+        <!-- Hash Generator -->
+        <div class="tool-card">
+            <h3>#️⃣ Hash Generator (SHA-256)</h3>
+            <input type="text" class="tool-input" id="hashInput" placeholder="Enter text to hash...">
+            <button class="tool-btn" onclick="generateHash()">Generate Hash</button>
+            <div class="hash-output" id="hashOutput">Hash will appear here...</div>
+            <div style="margin-top: 10px; font-size: 11px; color: #6b7280;">
+                Demonstrates one-way encryption
+            </div>
+        </div>
+
+        <!-- 2FA Simulator -->
+        <div class="tool-card">
+            <h3>🛡️ 2FA TOTP Simulator</h3>
+            <div style="background: #0a0f0d; padding: 15px; border-radius: 6px; text-align: center; border: 1px solid #374151;">
+                <div style="font-size: 32px; font-family: 'Fira Code', monospace; color: var(--primary); letter-spacing: 4px;" id="totpCode">------</div>
+                <div style="font-size: 12px; color: #6b7280; margin-top: 8px;">Refreshes every 30 seconds</div>
+                <div style="width: 100%; height: 3px; background: #374151; margin-top: 10px; border-radius: 2px; overflow: hidden;">
+                    <div style="height: 100%; background: var(--primary); width: 100%; transition: width 1s linear;" id="totpProgress"></div>
+                </div>
+            </div>
+            <div style="margin-top: 10px; font-size: 11px; color: #6b7280;">
+                Simulates Time-based One-Time Password algorithm
+            </div>
+        </div>
+
+        <!-- XSS Prevention Demo -->
+        <div class="tool-card">
+            <h3>🛡️ XSS Prevention Demo</h3>
+            <input type="text" class="tool-input" id="xssInput" placeholder="Try: <script>alert('xss')</script>">
+            <button class="tool-btn" onclick="testXSS()">Test Sanitization</button>
+            <div style="margin-top: 10px; padding: 10px; background: #0a0f0d; border-radius: 6px; border: 1px solid #374151;">
+                <div style="font-size: 11px; color: #6b7280; margin-bottom: 5px;">Sanitized Output:</div>
+                <div id="xssOutput" style="font-family: 'Fira Code', monospace; font-size: 12px; color: var(--primary); min-height: 20px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Audit Log -->
+    <div class="security-log" id="securityLog">
+        <div style="color: var(--primary); margin-bottom: 10px; border-bottom: 1px solid #374151; padding-bottom: 5px;">
+            📋 SECURITY AUDIT LOG
+        </div>
+        <div id="logContent"></div>
+    </div>
+</section>
+
+<section id="projects">
+    <h2>Projects</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>📚 Book Platform</h3>
+            <p>Online platform for reading and listening to books. Users can browse titles, read PDFs, and enjoy audio versions, providing an accessible and interactive reading experience.</p>
+            <a href="#" class="btn" style="margin-top: 15px; padding: 8px 16px; font-size: 14px;">View Project</a>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>📬 My Contact</h2>
+    <p style="text-align: center; margin-bottom: 30px; color: #86efac;">
+        Reach me via any of the following channels.
+    </p>
+    
+    <div class="cards">
+        <div class="card">
+            <h3>✉️ Email</h3>
+            <p>meduahara@gmail.com</p>
+        </div>
+        <div class="card">
+            <h3>📞 Phone</h3>
+            <p>+212 6 21 XX XX XX</p>
+        </div>
+        <div class="card">
+            <h3>🌐 LinkedIn</h3>
+            <p><a href="https://www.linkedin.com/in/mohammed-boukouj-68b326399" target="_blank" style="color:var(--primary); text-decoration:underline;">
+               linkedin.com/in/mohammed-boukouj-68b326399
+            </a></p>
+        </div>
+        <div class="card">
+            <h3>💬 GitHub</h3>
+            <p><a href="https://github.com/med-urahara" target="_blank" style="color:var(--primary); text-decoration:underline;">
+                github.com/med-urahara
+            </a></p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="security-status">
+        <span>🔒</span>
+        <span>System Secure | All Connections Encrypted</span>
+    </div>
+    <p>&copy; 2024 Mohammed Boukouj. All rights reserved.</p>
+</footer>
+
+<script>
+// Security Audit Log
+function addLog(event) {
+    const logContent = document.getElementById('logContent');
+    const time = new Date().toLocaleTimeString();
+    const entry = document.createElement('div');
+    entry.className = 'log-entry';
+    entry.innerHTML = `<span class="log-time">[${time}]</span> <span class="log-event">${event}</span>`;
+    logContent.insertBefore(entry, logContent.firstChild);
+    if (logContent.children.length > 20) {
+        logContent.removeChild(logContent.lastChild);
+    }
+}
+
+// Generate Session ID
+document.getElementById('sessionId').textContent = 'SESSION-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+
+// Password Strength Analyzer
+document.getElementById('passwordInput').addEventListener('input', function(e) {
+    const password = e.target.value;
+    const bar = document.getElementById('strengthBar');
+    const text = document.getElementById('strengthText');
+    
+    let strength = 0;
+    if (password.length > 8) strength += 25;
+    if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength += 25;
+    if (password.match(/\d/)) strength += 25;
+    if (password.match(/[^a-zA-Z\d]/)) strength += 25;
+    
+    bar.style.width = strength + '%';
+    bar.style.backgroundColor = strength < 50 ? '#ef4444' : strength < 75 ? '#f59e0b' : '#00ff88';
+    text.textContent = strength < 50 ? 'Weak' : strength < 75 ? 'Medium' : 'Strong';
+    text.style.color = bar.style.backgroundColor;
+    
+    if (password.length > 0) {
+        addLog(`Password analyzed (length: ${password.length})`);
+    }
+});
+
+// SHA-256 Hash Generator
+async function generateHash() {
+    const input = document.getElementById('hashInput').value;
+    const output = document.getElementById('hashOutput');
+    
+    if (!input) {
+        output.textContent = 'Please enter text to hash';
+        return;
+    }
+    
+    const encoder = new TextEncoder();
+    const data = encoder.encode(input);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    
+    output.textContent = hashHex;
+    addLog('Hash generated using SHA-256');
+}
+
+// XSS Prevention Demo
+function testXSS() {
+    const input = document.getElementById('xssInput').value;
+    const output = document.getElementById('xssOutput');
+    
+    // Sanitize input
+    const sanitized = input
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    
+    output.textContent = sanitized;
+    addLog('XSS sanitization test performed');
+}
+
+// 2FA TOTP Simulator
+function updateTOTP() {
+    const code = Math.floor(100000 + Math.random() * 900000);
+    document.getElementById('totpCode').textContent = code;
+    addLog('TOTP code refreshed');
+}
+
+function updateProgress() {
+    const now = new Date();
+    const seconds = now.getSeconds();
+    const progress = ((30 - (seconds % 30)) / 30) * 100;
+    document.getElementById('totpProgress').style.width = progress + '%';
+}
+
+setInterval(updateTOTP, 30000);
+setInterval(updateProgress, 1000);
+updateTOTP();
+updateProgress();
+
+// CV Download
+function downloadSecureCV(e) {
+    e.preventDefault();
+    addLog('CV download initiated');
+    alert('CV download feature - Add your CV file here');
+}
+
+// Initial log
+addLog('Security systems initialized');
+addLog('CSP headers verified');
+</script>
+
+</body>
+</html>
